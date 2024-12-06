@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testUI.Controller">
+   <children>
+      <Button fx:id="moveLeftButton" layoutX="399.0" layoutY="224.0" mnemonicParsing="false" onAction="#moveLeft" text="MoveLeft" />
+      <Button fx:id="moveRightButton" layoutX="548.0" layoutY="224.0" mnemonicParsing="false" onAction="#moveRight" text="MoveRight" />
+      <Pane fx:id="imagePane" layoutX="213.0" layoutY="324.0" prefHeight="200.0" prefWidth="700.0" style="-fx-border-color: #000;">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="200.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="300.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="400.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="500.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="500.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="400.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="300.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="200.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="100.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Arc fx:id="imagePane" fill="DODGERBLUE" layoutX="100.0" layoutY="100.0" length="180.0" radiusX="100.0" radiusY="100.0" startAngle="90.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+            <Arc fill="DODGERBLUE" layoutX="600.0" layoutY="100.0" length="180.0" radiusX="100.0" radiusY="100.0" startAngle="-90.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+            <ImageView fx:id="myImage" fitHeight="20.0" fitWidth="20.0" layoutX="350.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@./big-gem-Photoroom.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Button fx:id="cungChieuButton" layoutX="406.0" layoutY="268.0" mnemonicParsing="false" onAction="#cungChieu" text="Cung chieu" />
+      <Button fx:id="nguocChieuButton" layoutX="559.0" layoutY="268.0" mnemonicParsing="false" onAction="#nguocChieu" text="Nguoc Chieu" />
+   </children>
+</AnchorPane>

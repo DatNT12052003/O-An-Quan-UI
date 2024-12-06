@@ -1,0 +1,12 @@
+package testUI;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameBoard {
+	private List<Cell> listCell = new ArrayList<Cell>();
+	
+	public GameBoard() {
+		this.listCell.add(new Cell());
+	}
+}

@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+/**
+ * 
+ */
+module testUI {
+	requires javafx.fxml;
+	requires javafx.graphics;
+}

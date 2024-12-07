@@ -1,0 +1,375 @@
+package testUI;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+
+public class Controller{
+	
+	List<Gem> gemList = new ArrayList<Gem>();	
+	GameBoard gameBoard = new GameBoard();
+	
+	@FXML
+	private ImageView myImage;
+	
+	@FXML
+    private Pane imagePane; // Pane để chứa các ImageView
+	
+	@FXML
+	private Button moveLeftButton;
+	@FXML
+	private Button moveRightButton;
+	
+	@FXML
+	private Button cungChieuButton;
+	@FXML
+	private Button nguocChieuButton;
+	
+	ToaDo td = new ToaDo();
+	
+	private static int count = 0;
+	
+	public ToaDo dichDen(int i) {
+		
+		switch (i) {
+			case 0: 
+				td.setX(40+Math.random()*40);
+				td.setY(30+Math.random()*120);
+				break;
+			case 1: 
+			case 2: 
+			case 3: 
+			case 4: 
+			case 5: 
+				td.setX(10+i*100+Math.random()*60);
+				td.setY(10+Math.random()*60);
+				break;
+			case 6: 
+				td.setX(600+Math.random()*40);
+				td.setY(30+Math.random()*120);
+				break;
+			case 7: 
+			case 8: 
+			case 9: 
+			case 10:
+			case 11: 
+				td.setX(10+(12-i)*100+Math.random()*60);
+				td.setY(110+Math.random()*60);
+				break;
+			case 13:
+				td.setX(310+Math.random()*60);
+				td.setY(310+Math.random()*60);
+				break;
+			case 12:
+				td.setX(310+Math.random()*60);
+				td.setY(-190+Math.random()*60);
+				break;
+		}
+		return td;
+	}
+	
+	@FXML
+	public void initialize() {
+		
+		ToaDo td = new ToaDo();
+		
+		for(Cell cell : gameBoard.getListCell()){
+			for(Gem gem : cell.getListGem()) {
+				td = dichDen(cell.getId());
+				gem.getImage().setLayoutX(td.getX());
+				gem.getImage().setLayoutY(td.getY());
+				imagePane.getChildren().add(gem.getImage());
+			}
+		}
+//		System.out.println("X = " + td.getX() + ", Y = " + td.getY());
+//
+//		for(int i = 0; i<12; i++) {
+//	        for (int j = 0; j < 5; j++) {
+//	        	td = dichDen(i);
+	        	
+//	        	File file = new File("C:\\Users\\ADMIN\\Desktop\\testUI\\testUI\\src\\testUI\\gem.png");
+//	        	ImageView imageView = new ImageView(file.toURI().toString());
+
+	        	//ImageView imageView = new ImageView(getClass().getResource("/testUI/small-gem-Photoroom.png").toExternalForm());
+
+	        //	ImageView imageView = new ImageView(new String(getClass().getResource("C:\\Users\\ADMIN\\Desktop\\testUI\\testUI\\src\\testUI\small-gem-Photoroom.png").toExternalForm()));
+//	            imageView.setFitWidth(20);
+//	            imageView.setFitHeight(20);
+//	            imageView.setLayoutX(td.getX());
+//	            imageView.setLayoutY(td.getY());
+//	            
+//	            Gem gem = new Gem(1, i);
+//	            gemList.add(gem);
+//	        }
+//		}
+//		for (Gem gem : gemList) {
+//			System.out.println(gem.getId());
+//			System.out.println("In Cell: " + gem.getInCell());
+//            imagePane.getChildren().add(gem.getImage());
+//		}
+	}
+	
+	@FXML
+	public void click() {
+	    SequentialTransition sequentialTransition = new SequentialTransition();
+
+	    for (Gem gem : gameBoard.getListCell()[1].getListGem()) {
+	        TranslateTransition translate = new TranslateTransition();
+	        translate.setNode(gem.getImage());
+	    //    translate.setNode(gemList.get(i).getImage());
+	        translate.setDuration(Duration.millis(500));
+
+	        double actualX = gem.getImage().getTranslateX() + gem.getImage().getLayoutX();
+	        double actualY = gem.getImage().getTranslateY() + gem.getImage().getLayoutY();
+	        ToaDo td = dichDen(12);
+
+	        translate.setByX(td.getX() - actualX);
+	        translate.setByY(td.getY() - actualY);
+
+	        // Thêm hiệu ứng chuyển động vào danh sách
+	        sequentialTransition.getChildren().add(translate);
+
+	        // Thêm tạm dừng sau mỗi hiệu ứng
+	        PauseTransition pause = new PauseTransition(Duration.millis(50));
+	        sequentialTransition.getChildren().add(pause);
+	    }
+	    
+//	    for (int i = 0; i < 5; i++) {
+//	        TranslateTransition translate = new TranslateTransition();
+//	        translate.setNode(gameBoard.getListCell()[1].getListGem().get(i).getImage());
+//	    //    translate.setNode(gemList.get(i).getImage());
+//	        translate.setDuration(Duration.millis(500));
+//
+//	        double actualX = gameBoard.getListCell()[1].getListGem().get(i).getImage().getTranslateX() + gameBoard.getListCell()[1].getListGem().get(i).getImage().getLayoutX();
+//	        double actualY = gameBoard.getListCell()[1].getListGem().get(i).getImage().getTranslateY() + gameBoard.getListCell()[1].getListGem().get(i).getImage().getLayoutY();
+//	        ToaDo td = dichDen(12);
+//
+//	        translate.setByX(td.getX() - actualX);
+//	        translate.setByY(td.getY() - actualY);
+//
+//	        // Thêm hiệu ứng chuyển động vào danh sách
+//	        sequentialTransition.getChildren().add(translate);
+//
+//	        // Thêm tạm dừng sau mỗi hiệu ứng
+//	        PauseTransition pause = new PauseTransition(Duration.millis(50));
+//	        sequentialTransition.getChildren().add(pause);
+//	    }
+
+	    // Bắt đầu chuỗi hiệu ứng
+	    sequentialTransition.play();
+	}
+	
+//	@FXML
+//	public void initialize() {
+//		ToaDo td = new ToaDo();
+//		System.out.println("X = " + td.getX() + ", Y = " + td.getY());
+//		for(int i = 0; i<12; i++) {
+//	        for (int j = 0; j < 5; j++) {
+//	        	td = dichDen(i);
+//	        	ImageView imageView = new ImageView(new String(getClass().getResource("small-gem-Photoroom.png").toExternalForm()));
+//	            imageView.setFitWidth(20); // Đặt kích thước
+//	            imageView.setFitHeight(20);
+//	            imageView.setLayoutX(td.getX()); // Đặt vị trí x
+//	            imageView.setLayoutY(td.getY());    // Đặt vị trí y
+//	            imageViewList.add(imageView); // Thêm vào danh sách
+//	            imagePane.getChildren().add(imageView);
+//	        }
+//		}
+//	}
+	
+//    @FXML
+//    public void initialize() {
+//        for (int i = 0; i < 60; i++) {
+//            // Nếu ảnh nằm cùng thư mục
+//            ImageView imageView = new ImageView(new String(getClass().getResource("big-gem-Photoroom.png").toExternalForm()));
+//
+//            imageView.setFitWidth(50);
+//            imageView.setFitHeight(50);
+//            imageView.setLayoutX((i % 10) * 60);
+//            imageView.setLayoutY((i / 10) * 60);
+//            imageViewList.add(imageView);
+//            imagePane.getChildren().add(imageView);
+//        }
+//    }
+	
+//	@FXML
+//	public void cungChieu() {
+//	    animateGem(0); // Bắt đầu từ phần tử đầu tiên
+//	}
+
+//	private void animateGem(int index) {
+//	    if (index >= 5) return; // Kết thúc khi hết danh sách
+//
+//	    TranslateTransition translate = new TranslateTransition();
+//	    translate.setNode(gemList.get(index).getImage());
+//	    translate.setDuration(Duration.millis(1000));
+//
+//	    double actualX = gemList.get(index).getImage().getTranslateX() + gemList.get(index).getImage().getLayoutX();
+//	    double actualY = gemList.get(index).getImage().getTranslateY() + gemList.get(index).getImage().getLayoutY();
+//	    ToaDo td = dichDen(index + 2);
+//
+//	    translate.setByX(td.getX() - actualX);
+//	    translate.setByY(td.getY() - actualY);
+//
+//	    translate.setOnFinished(event -> {
+//	        PauseTransition pause = new PauseTransition(Duration.millis(50)); // Dừng 1 giây
+//	        pause.setOnFinished(e -> animateGem(index + 1)); // Tiếp tục với phần tử tiếp theo
+//	        pause.play();
+//	    });
+//
+//	    translate.play(); // Thực hiện chuyển động
+//	}
+
+	@FXML
+	public void cungChieu() {
+	    SequentialTransition sequentialTransition = new SequentialTransition();
+
+	    for (int i = 0; i < 5; i++) {
+	        TranslateTransition translate = new TranslateTransition();
+	        translate.setNode(gemList.get(i).getImage());
+	        translate.setDuration(Duration.millis(500));
+
+	        double actualX = gemList.get(i).getImage().getTranslateX() + gemList.get(i).getImage().getLayoutX();
+	        double actualY = gemList.get(i).getImage().getTranslateY() + gemList.get(i).getImage().getLayoutY();
+	        ToaDo td = dichDen(i + 2);
+
+	        translate.setByX(td.getX() - actualX);
+	        translate.setByY(td.getY() - actualY);
+
+	        // Thêm hiệu ứng chuyển động vào danh sách
+	        sequentialTransition.getChildren().add(translate);
+
+	        // Thêm tạm dừng sau mỗi hiệu ứng
+	        PauseTransition pause = new PauseTransition(Duration.millis(50));
+	        sequentialTransition.getChildren().add(pause);
+	    }
+
+	    // Bắt đầu chuỗi hiệu ứng
+	    sequentialTransition.play();
+	}
+	
+//	@FXML
+//	public void cungChieu() {
+//	    SequentialTransition sequentialTransition = new SequentialTransition();
+//
+//	    for (int i = 0; i < 5; i++) {
+//	        TranslateTransition translate = new TranslateTransition();
+//	        translate.setNode(gemList.get(i).getImage());
+//	        translate.setDuration(Duration.millis(500));
+//
+//	        double actualX = gemList.get(i).getImage().getTranslateX() + gemList.get(i).getImage().getLayoutX();
+//	        double actualY = gemList.get(i).getImage().getTranslateY() + gemList.get(i).getImage().getLayoutY();
+//	        ToaDo td = dichDen(i + 2);
+//
+//	        translate.setByX(td.getX() - actualX);
+//	        translate.setByY(td.getY() - actualY);
+//
+//	        // Thêm hiệu ứng chuyển động vào danh sách
+//	        sequentialTransition.getChildren().add(translate);
+//
+//	        // Thêm tạm dừng sau mỗi hiệu ứng
+//	        PauseTransition pause = new PauseTransition(Duration.millis(50));
+//	        sequentialTransition.getChildren().add(pause);
+//	    }
+//
+//	    // Bắt đầu chuỗi hiệu ứng
+//	    sequentialTransition.play();
+//	}
+
+	
+	
+//	@FXML
+//	public void cungChieu() {
+//		for(int i = 0; i<5; i++) {
+//			TranslateTransition translate = new TranslateTransition();
+//			translate.setNode(gemList.get(i).getImage());
+//			translate.setDuration(Duration.millis(1000));
+//			double actualX = gemList.get(i).getImage().getTranslateX() + gemList.get(i).getImage().getLayoutX();
+//			double actualY = gemList.get(i).getImage().getTranslateY() + gemList.get(i).getImage().getLayoutY();
+//			ToaDo td = new ToaDo();
+//			td = dichDen(i+2);
+//			translate.setByX(td.getX()-actualX);
+//			translate.setByY(td.getY()-actualY);
+//			translate.play();
+//		}
+//	}
+//	
+	
+//	@FXML
+//	public void cungChieu() {
+//		TranslateTransition translate = new TranslateTransition();
+//		translate.setNode(myImage);
+//		translate.setDuration(Duration.millis(1000));
+//		double actualX = myImage.getTranslateX() + myImage.getLayoutX();
+//		double actualY = myImage.getTranslateY() + myImage.getLayoutY();
+//		ToaDo td = new ToaDo();
+//		if (count<11) {
+//			count = count+1;
+//		} else {
+//			count=0;
+//		}
+//		System.out.println(count);
+//		td = dichDen(count);
+//		System.out.println("X = " + td.getX() + ", Y = " + td.getY());
+//		translate.setByX(td.getX()-actualX);
+//		translate.setByY(td.getY()-actualY);
+//		translate.play();
+//	}
+	
+	@FXML
+	public void nguocChieu() {
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(myImage);
+		translate.setDuration(Duration.millis(1000));
+		double actualX = myImage.getTranslateX() + myImage.getLayoutX();
+		double actualY = myImage.getTranslateY() + myImage.getLayoutY();
+		ToaDo td = new ToaDo();
+		if (count>0) {
+			count = count -1;
+		} else {
+			count=11;
+		}
+		System.out.println(count);
+		td = dichDen(count);
+		System.out.println("X = " + td.getX() + ", Y = " + td.getY());
+		translate.setByX(td.getX()-actualX);
+		translate.setByY(td.getY()-actualY);
+		translate.play();
+	}
+	
+	@FXML
+	public void moveLeft() {
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(myImage);
+		translate.setDuration(Duration.millis(1000));
+		double actualX = myImage.getTranslateX() + myImage.getLayoutX();
+		double actualY = myImage.getTranslateY() + myImage.getLayoutY();
+		System.out.println("X = " + actualX + ", Y = " + actualY);
+			translate.setByX(20+Math.random()*60-actualX);
+			translate.setByY(20+Math.random()*60-actualY);
+			translate.play();
+	}
+	@FXML
+	public void moveRight() {
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(myImage);
+		translate.setDuration(Duration.millis(1000));
+		double actualX = myImage.getTranslateX() + myImage.getLayoutX();
+		double actualY = myImage.getTranslateY() + myImage.getLayoutY();
+		System.out.println("X = " + actualX + ", Y = " + actualY);
+		translate.setToX(Math.random()*150);
+		translate.setToY(Math.random()*150);
+			translate.play();
+	}
+
+}

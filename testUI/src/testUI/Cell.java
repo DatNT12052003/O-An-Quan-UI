@@ -30,7 +30,11 @@ public class Cell {
 	
 	
 	public int getValue() {
-		return value;
+		int total = 0;
+		for (Gem g : listGem) {
+			total += g.getValue();
+		}
+		return  total;
 	}
 
 	public void valueCaculate() {
